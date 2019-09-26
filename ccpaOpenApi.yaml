@@ -1,0 +1,1254 @@
+openapi: 3.0.0
+info:
+  description: This is a swagger for the visible privacy portal landing page which
+    implements the CCPA. Most of the API's here were developed using the slide
+    numeber 14 as a reference.
+  version: 1.0.0
+  title: CCPA Swagger
+  termsOfService: https://www.visible.com/legal/terms-and-conditions
+  contact:
+    email: ashmit.kolli@verizon.com
+  license:
+    name: Privacy Policy
+    url: https://www.visible.com/legal/privacy
+tags:
+  - name: Privacy Requests
+    description: Privacy Portal Landing
+  - name: Account and Identity
+    description: Privacy Portal Landing (Slide 13)
+  - name: Network Activity
+    description: Privacy Portal Landing (Slide 24)
+  - name: Inferences and Insights
+    description: Privacy Portal Landing (Slide 09)
+  - name: Add Ons
+    description: Privacy Portal Landing
+  - name: Control
+    description: Manage Tab (Slide 29)
+  - name: Requests
+    description: Manage Tab (Slide 33)
+paths:
+  /v1/privacy/privacyRequests:
+    get:
+      tags:
+        - Privacy Requests
+      summary: ""
+      description: This is for the scenario if we decide to load all the information in the
+        'Privacy Portal' of the uer when the page loads rather than making
+        individual API calls when the user decides to press the expand button.
+      operationId: getPrivacyRequests
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Firebase-Token
+          required: false
+          description: Mandatory if firebaseId header is not present, when call is
+            initiated from CARE Console
+          schema:
+            type: string
+        - in: header
+          name: firebaseId
+          required: false
+          description: Mandatory if firebase-token header is not present, when call is
+            initiated from Web/App.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/privacyRequests"
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+  /v1/privacy/accountIdentity:
+    get:
+      tags:
+        - Account and Identity
+      summary: ""
+      description: "For personal identifiers : Get Users personal identifiers - Full Name,
+        Email Address, Street Address, Zip, City, State, Phone Number, Birth
+        Date. For government identifiers : Get Users government identifiers -
+        ssn number, drivers license number, military ID. For the users financial
+        information : Get Users billing and financial information - credit card,
+        bank account, credit score. For the technical inormation we have on the
+        users : Get Users technical information - Device, IP address, IMEI,
+        Email Address, Phone Number, Cookie ID, IMSI"
+      operationId: getAccountIdentity
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Firebase-Token
+          required: false
+          description: Mandatory if firebaseId header is not present, when call is
+            initiated from CARE Console
+          schema:
+            type: string
+        - in: header
+          name: firebaseId
+          required: false
+          description: Mandatory if firebase-token header is not present, when call is
+            initiated from Web/App.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/accountIdentity"
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+  /v1/privacy/networkActivity:
+    get:
+      tags:
+        - Network Activity
+      summary: ""
+      description: "1-Get Users call records where only EUM informing from where the call
+        records can be accessed. 2-Get Users geolocation: Cell Site ID (cell
+        towers accessed)(no lat/long), Device location (enabled by device
+        loaction services), App specific location (Enabled y device specific
+        location services. 3-Get the information about the sites visited and the
+        percentage distribution of the data usage for the user. classifying the
+        usage into : 'web and apps, video, email and messaging, social media and
+        networking, gaming, audio 4.Fetch all the IP addresses used by the
+        customer to access the website / make the payments due. 5.Fetch the
+        customer's communication records and their purchase history with the
+        visible."
+      operationId: getNetworkActivity
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Firebase-Token
+          required: false
+          description: Mandatory if firebaseId header is not present, when call is
+            initiated from CARE Console
+          schema:
+            type: string
+        - in: header
+          name: firebaseId
+          required: false
+          description: Mandatory if firebase-token header is not present, when call is
+            initiated from Web/App.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/networkActivity"
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+  /v1/privacy/inferencesInsights:
+    get:
+      tags:
+        - Inferences and Insights
+      summary: ""
+      description: "General Information and assumptions about the user based on the data
+        that is collected : Get attributes, Presferences and opinions of the
+        customer which are - Ethinicity, Lifestyle, Religious Beliefs, Political
+        opinions. Demographics, Market Segment. For the commercial data on the
+        user we got from our advertising partners : Get commercail data
+        collected on the customer - Age Bracket they belong to, Home value,
+        Length of their residence in that said home and their income level.
+        Basically these are the inferences derived from our advertising
+        partners."
+      operationId: getInferencesInsights
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Firebase-Token
+          required: false
+          description: Mandatory if firebaseId header is not present, when call is
+            initiated from CARE Console
+          schema:
+            type: string
+        - in: header
+          name: firebaseId
+          required: false
+          description: Mandatory if firebase-token header is not present, when call is
+            initiated from Web/App.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inferencesInsights"
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+  /v1/privacy/addOns:
+    get:
+      tags:
+        - Add Ons
+      summary: ""
+      description: Get the information about the customers additional products and features
+        included in their account - Device insurance and Device Financing
+      operationId: getAddOns
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Firebase-Token
+          required: false
+          description: Mandatory if firebaseId header is not present, when call is
+            initiated from CARE Console
+          schema:
+            type: string
+        - in: header
+          name: firebaseId
+          required: false
+          description: Mandatory if firebase-token header is not present, when call is
+            initiated from Web/App.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/addOns"
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+  /v1/privacy/control/privacySettings:
+    get:
+      tags:
+        - Control
+      summary: This will fetch the users preferences
+      description: This will fetch the preferences already set by the user who is logged in
+      operationId: getPrivacySettings
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Firebase-Token
+          required: false
+          description: Mandatory if firebaseId header is not present, when call is
+            initiated from CARE Console
+          schema:
+            type: string
+        - in: header
+          name: firebaseId
+          required: false
+          description: Mandatory if firebase-token header is not present, when call is
+            initiated from Web/App.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/privacySettings"
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+    put:
+      tags:
+        - Control
+      summary: This will update the users preferences
+      description: "This can only be done by the logged in user. And they have the power to
+        chose wether to opt in or opt out. DEFAULT is : Opt in."
+      operationId: putPrivacySettings
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Firebase-Token
+          required: false
+          description: Mandatory if firebaseId header is not present, when call is
+            initiated from CARE Console
+          schema:
+            type: string
+        - in: header
+          name: firebaseId
+          required: false
+          description: Mandatory if firebase-token header is not present, when call is
+            initiated from Web/App.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/privacySettings"
+        description: Created user object
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/privacySettings"
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+  /v1/privacy/control/marketingPreferences:
+    get:
+      tags:
+        - Control
+      summary: This will fetch the users preferences
+      description: ""
+      operationId: getMarketingPreferences
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Firebase-Token
+          required: false
+          description: Mandatory if firebaseId header is not present, when call is
+            initiated from CARE Console
+          schema:
+            type: string
+        - in: header
+          name: firebaseId
+          required: false
+          description: Mandatory if firebase-token header is not present, when call is
+            initiated from Web/App.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/marketingPreferences"
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+    put:
+      tags:
+        - Control
+      summary: This will update the useres preferences
+      description: This can only be done by the logged in user. This is used to update the
+        user's choice of the way the company-visible communicates with them
+        (Marketing)
+      operationId: putMarketingPreferences
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Firebase-Token
+          required: false
+          description: Mandatory if firebaseId header is not present, when call is
+            initiated from CARE Console
+          schema:
+            type: string
+        - in: header
+          name: firebaseId
+          required: false
+          description: Mandatory if firebase-token header is not present, when call is
+            initiated from Web/App.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/marketingPreferences"
+        description: Created user object
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/marketingPreferences"
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+  /v1/privacy/informationRequests/downloadCheck:
+    get:
+      tags:
+        - Requests
+      summary: Used to check if any pending download requests exist before the page
+        loads. If there are any pending requests, we show an option where the
+        user can click on to be directed to their request history.
+      description: ""
+      operationId: getDownloadCheck
+      parameters:
+        - in: header
+          description: This will fetch all the requests made by the user with regards to
+            their data downloads. This is used to check if the user has made
+            either 10 Download requests per 12 months OR 2 download requests in
+            12 months for download with Affidavit (Highest Security) OR if there
+            are any pending download requests made by the customer.
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Firebase-Token
+          required: false
+          description: Mandatory if firebaseId header is not present, when call is
+            initiated from CARE Console
+          schema:
+            type: string
+        - in: header
+          name: firebaseId
+          required: false
+          description: Mandatory if firebase-token header is not present, when call is
+            initiated from Web/App.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/downloadCheck"
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+      security:
+        - auth:
+            - write:data
+            - read:data
+  /v1/privacy/informationRequests/requestHistory:
+    get:
+      tags:
+        - Requests
+      summary: Fetch a history of the previous download requests of the logged in user.
+        This is done after a download check is performed and the user clicks on
+        the 'click here' to fetch a list of their previous download requests.
+      description: This will fetch all the requests made by the user with regards to their
+        data downloads. This is used to show a preview to the user of all the
+        requests made by them.
+      operationId: getRequestHistory
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Firebase-Token
+          required: false
+          description: Mandatory if firebaseId header is not present, when call is
+            initiated from CARE Console
+          schema:
+            type: string
+        - in: header
+          name: firebaseId
+          required: false
+          description: Mandatory if firebase-token header is not present, when call is
+            initiated from Web/App.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/requestHistory"
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+      security:
+        - auth:
+            - write:data
+            - read:data
+  /v1/privacy/informationRequests/download:
+    put:
+      tags:
+        - Requests
+      summary: update the fields to be downloaded
+      description: IF a particular user made more than the threshold requests, an error
+        pops up else, a 5 day clock starts ticking for MFA validation of the
+        request for normal download and 10 day clock for download with
+        AFFIDAVICT with the Required delivery being less than 30 days for normal
+        downloads and 45 days for downloads with AFFIDAVICT.
+      operationId: putDownload
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Firebase-Token
+          required: false
+          description: Mandatory if firebaseId header is not present, when call is
+            initiated from CARE Console
+          schema:
+            type: string
+        - in: header
+          name: firebaseId
+          required: false
+          description: Mandatory if firebase-token header is not present, when call is
+            initiated from Web/App.
+          schema:
+            type: string
+        - name: Categories
+          in: query
+          description: User has option to choose Multiple values which are then sent to the
+            server as a request from the client with the customer populating
+            which fields they want to download.
+          required: true
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - account and identity
+                - network activity
+                - interests and insights
+                - Add ons
+        - name: Download Type
+          in: path
+          description: User can chose between standard download or an advanced download.
+            With Standards being -TRUE and advanced being FALSE
+          required: true
+          schema:
+            type: boolean
+            items:
+              type: string
+              enum:
+                - standard
+                - advanced
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/download"
+        "400":
+          description: Invalid status value
+      security:
+        - auth:
+            - write:data
+            - read:data
+  /v1/privacy/informationRequests/requestCode:
+    put:
+      tags:
+        - Requests
+      summary: Used to request an authorization code
+      description: This call is activated when the user presses the 'request code' in the
+        download flow
+      operationId: putRequestCode
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Firebase-Token
+          required: false
+          description: Mandatory if firebaseId header is not present, when call is
+            initiated from CARE Console
+          schema:
+            type: string
+        - in: header
+          name: firebaseId
+          required: false
+          description: Mandatory if firebase-token header is not present, when call is
+            initiated from Web/App.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/requestCode"
+        "400":
+          description: Invalid code supplied
+        "404":
+          description: code not found
+      security:
+        - auth:
+            - write:data
+            - read:data
+  /v1/privacy/informationRequests/verificationCode:
+    post:
+      tags:
+        - Requests
+      summary: Used to verify the authorization code
+      description: POST to token URL to verify if the entered code is valid or not
+      operationId: postVerificationCode
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Firebase-Token
+          required: false
+          description: Mandatory if firebaseId header is not present, when call is
+            initiated from CARE Console
+          schema:
+            type: string
+        - in: header
+          name: firebaseId
+          required: false
+          description: Mandatory if firebase-token header is not present, when call is
+            initiated from Web/App.
+          schema:
+            type: string
+        - name: code
+          in: path
+          description: that is to be validated by checking with the token issued
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/verificationCode"
+        "400":
+          description: Invalid code supplied
+        "404":
+          description: code not found
+      security:
+        - auth:
+            - write:data
+            - read:data
+  /v1/privacy/informationRequests/cancelDownload:
+    delete:
+      tags:
+        - Requests
+      summary: Delete the download requests.
+      description: This is called when the user places a download request and decided to
+        cancel in during the hold time period (5 days for normal download and 10
+        days for download with affidavit)
+      operationId: deleteDownload
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Firebase-Token
+          required: false
+          description: The id of the user who wants to cancel their download request
+          schema:
+            type: string
+        - in: header
+          name: firebaseId
+          required: false
+          description: Mandatory if firebase-token header is not present, when call is
+            initiated from Web/App.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cancelDownload"
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+      security:
+        - auth:
+            - write:data
+            - read:data
+  /v1/privacy/informationRequests/timeFrame:
+    put:
+      tags:
+        - Requests
+      summary: Time period of the data collected to be downloaded
+      description: The user gets to chose how much of the data to be downloaded.
+      operationId: putTimeFrame
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Firebase-Token
+          required: false
+          description: Mandatory if firebaseId header is not present, when call is
+            initiated from CARE Console
+          schema:
+            type: string
+        - in: header
+          name: firebaseId
+          required: false
+          description: Mandatory if firebase-token header is not present, when call is
+            initiated from Web/App.
+          schema:
+            type: string
+        - name: Time Frame
+          in: query
+          description: ""
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+              enum:
+                - Last 3 months
+                - Last 6 months
+                - Last 12 months
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/timeFrame"
+        "400":
+          description: Invalid status value
+    post:
+      tags:
+        - Requests
+      summary: creating a custom timeframe declared by the customer
+      description: ""
+      operationId: postTimeFrame
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Firebase-Token
+          required: false
+          description: Mandatory if firebaseId header is not present, when call is
+            initiated from CARE Console
+          schema:
+            type: string
+        - in: header
+          name: firebaseId
+          required: false
+          description: Mandatory if firebase-token header is not present, when call is
+            initiated from Web/App.
+          schema:
+            type: string
+        - name: timeframe
+          in: path
+          description: ""
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/timeFrame"
+        "400":
+          description: Invalid timeframe supplied
+  /v1/privacy/informationRequests/delete:
+    put:
+      tags:
+        - Requests
+      summary: Fields selected by the user to be deleted
+      description: All the delete requests must be processed in less than 30 days and there
+        is no need to hold the request before processing it.
+      operationId: putDeleteRequest
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Firebase-Token
+          required: false
+          description: User ID/Firebase-Token of the user who wants to delete all the data
+            we store on them in our servers.
+          schema:
+            type: string
+        - in: header
+          name: firebaseId
+          required: false
+          description: Mandatory if firebase-token header is not present, when call is
+            initiated from Web/App.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/delete"
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+      security:
+        - auth:
+            - write:data
+            - read:data
+externalDocs:
+  description: Find out more about visible
+  url: https://www.visible.com/
+components:
+  securitySchemes:
+    auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: http://ccpaSwagger.swagger.io/oauth/dialog
+          scopes:
+            write:data: modify user data preferences
+            read:data: fetch user's previously saved data preferences
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
+  schemas:
+    privacyRequests:
+      type: object
+      properties:
+        personalIdentifiers:
+          type: array
+          xml:
+            name: personalIdentifiers
+            wrapped: false
+          items:
+            $ref: "#/components/schemas/personalIdentifiers"
+        financialIdentifiers:
+          type: array
+          xml:
+            name: financialIdentifiers
+          items:
+            $ref: "#/components/schemas/financialIdentifiers"
+        technicalIdentifiers:
+          type: array
+          xml:
+            name: technicalIdentifiers
+          items:
+            $ref: "#/components/schemas/technicalIdentifiers"
+        callRecords:
+          type: array
+          xml:
+            name: callRecords
+            wrapped: false
+          items:
+            $ref: "#/components/schemas/callRecords"
+        geoLocation:
+          type: array
+          xml:
+            name: geoLocation
+          items:
+            $ref: "#/components/schemas/geoLocation"
+        browsingHistory:
+          type: array
+          xml:
+            name: browsingHistory
+          items:
+            $ref: "#/components/schemas/browsingHistory"
+        ipAddressRecords:
+          type: array
+          xml:
+            name: ipAddressRecords
+          items:
+            $ref: "#/components/schemas/ipAddressRecords"
+        customerCommunicationRecords:
+          type: array
+          xml:
+            name: customerCommunicationRecords
+          items:
+            $ref: "#/components/schemas/customerCommunicationRecords"
+        generalInsights:
+          type: array
+          xml:
+            name: generalInsights
+            wrapped: false
+          items:
+            $ref: "#/components/schemas/generalInsights"
+        commercialInsights:
+          type: array
+          xml:
+            name: commercialInsights
+          items:
+            $ref: "#/components/schemas/commercialInsights"
+        deviceInsurance:
+          type: string
+        deviceFinancing:
+          type: string
+    accountIdentity:
+      type: object
+      properties:
+        personalIdentifiers:
+          type: array
+          xml:
+            name: personalIdentifiers
+            wrapped: false
+          items:
+            $ref: "#/components/schemas/personalIdentifiers"
+        financialIdentifiers:
+          type: array
+          xml:
+            name: financialIdentifiers
+          items:
+            $ref: "#/components/schemas/financialIdentifiers"
+        technicalIdentifiers:
+          type: array
+          xml:
+            name: technicalIdentifiers
+          items:
+            $ref: "#/components/schemas/technicalIdentifiers"
+    personalIdentifiers:
+      type: object
+      properties:
+        customerNumber:
+          type: integer
+          format: int64
+        name:
+          type: string
+        emailAddress:
+          type: string
+        streetAddress:
+          type: string
+        cityStateZipCode:
+          type: string
+    financialIdentifiers:
+      type: object
+      properties:
+        creditCards:
+          type: integer
+    technicalIdentifiers:
+      type: object
+      properties:
+        deviceInformation:
+          type: string
+        mdn:
+          type: integer
+        imei:
+          type: integer
+    networkActivity:
+      type: object
+      properties:
+        callRecords:
+          type: array
+          xml:
+            name: callRecords
+            wrapped: false
+          items:
+            $ref: "#/components/schemas/callRecords"
+        geoLocation:
+          type: array
+          xml:
+            name: geoLocation
+          items:
+            $ref: "#/components/schemas/geoLocation"
+        browsingHistory:
+          type: array
+          xml:
+            name: browsingHistory
+          items:
+            $ref: "#/components/schemas/browsingHistory"
+        ipAddressRecords:
+          type: array
+          xml:
+            name: ipAddressRecords
+          items:
+            $ref: "#/components/schemas/ipAddressRecords"
+        customerCommunicationRecords:
+          type: array
+          xml:
+            name: customerCommunicationRecords
+          items:
+            $ref: "#/components/schemas/customerCommunicationRecords"
+    callRecords:
+      type: object
+      properties:
+        callRecords:
+          type: string
+    geoLocation:
+      type: object
+      properties:
+        cellSiteId:
+          type: integer
+        deviceLocation:
+          type: string
+        appSpecificLocation:
+          type: string
+    browsingHistory:
+      type: object
+      properties:
+        webAndApps:
+          type: integer
+        video:
+          type: integer
+        emailAndMssaging:
+          type: integer
+        socialMediaAndNetworking:
+          type: integer
+        gaming:
+          type: integer
+        audio:
+          type: integer
+        mapsAndNavigation:
+          type: integer
+        fileSharing:
+          type: integer
+        communicationAndDeviceServices:
+          type: integer
+    ipAddressRecords:
+      type: object
+      properties:
+        IpAddressRecords:
+          type: string
+    customerCommunicationRecords:
+      type: object
+      properties:
+        communicationRecords:
+          type: string
+        purchaseHistory:
+          type: string
+    inferencesInsights:
+      type: object
+      properties:
+        generalInsights:
+          type: array
+          xml:
+            name: generalInsights
+            wrapped: false
+          items:
+            $ref: "#/components/schemas/generalInsights"
+        commercialInsights:
+          type: array
+          xml:
+            name: commercialInsights
+          items:
+            $ref: "#/components/schemas/commercialInsights"
+    generalInsights:
+      type: object
+      properties:
+        ehinicuty:
+          type: string
+        lifestyle:
+          type: string
+        religiousBeliefs:
+          type: string
+        politicalOpinions:
+          type: string
+        marketSegment:
+          type: string
+    commercialInsights:
+      type: object
+      properties:
+        inferencesFromAdvertisingPartners:
+          type: string
+    addOns:
+      type: object
+      properties:
+        deviceInsurance:
+          type: string
+        deviceFinancing:
+          type: string
+    privacySettings:
+      type: object
+      properties:
+        customerNumber:
+          type: integer
+          format: int64
+        shareCpni:
+          type: boolean
+        sellInformation:
+          type: boolean
+          example: "false"
+    marketingPreferences:
+      type: object
+      properties:
+        customerNumber:
+          type: integer
+          format: int64
+        email:
+          type: boolean
+        sms:
+          type: boolean
+        survey:
+          type: boolean
+          example: "false"
+        phoneCall:
+          type: boolean
+        socialMedia:
+          type: boolean
+        receiveAdditionalMarketing:
+          type: boolean
+          example: "false"
+        receiveListBasedAds:
+          type: boolean
+          example: "false"
+        winBackPrograms:
+          type: boolean
+          example: "false"
+    requestHistory:
+      type: object
+      properties:
+        customerNumber:
+          type: integer
+          format: int64
+        history:
+          type: string
+        userStatus:
+          type: integer
+          format: int32
+          description: User Status
+    downloadCheck:
+      type: object
+      properties:
+        customerNumber:
+          type: integer
+          format: int64
+        pendingDownloads:
+          type: boolean
+          example: "True"
+        exceedDownloadLimit:
+          type: boolean
+          example: "false"
+    cancelDownload:
+      type: object
+      properties:
+        customerNumber:
+          type: integer
+          format: int64
+        cancelDownloadRequest:
+          type: boolean
+          example: "True"
+    download:
+      type: object
+      properties:
+        customerNumber:
+          type: integer
+          format: int64
+        userName:
+          type: string
+          example: rohith
+        userInformation:
+          type: array
+          xml:
+            name: userinformation
+            wrapped: true
+          items:
+            type: string
+        tags:
+          type: array
+          xml:
+            name: tag
+            wrapped: true
+          items:
+            $ref: "#/components/schemas/downloadConfirmation"
+        status:
+          type: string
+          description: User
+          enum:
+            - available
+            - not available
+    downloadConfirmation:
+      type: object
+      properties:
+        customerNumber:
+          type: integer
+          format: int64
+        requestSucessfullySentToVisible:
+          type: boolean
+    requestCode:
+      type: object
+      properties:
+        customerNumber:
+          type: integer
+          format: int64
+        requested:
+          type: boolean
+    verificationCode:
+      type: object
+      properties:
+        customerNumber:
+          type: integer
+          format: int64
+        code:
+          type: integer
+          format: int64
+          example: "9063708961"
+    timeFrame:
+      type: object
+      properties:
+        customerNumber:
+          type: integer
+          format: int64
+        sucessfullyUpdated:
+          type: boolean
+    delete:
+      type: object
+      properties:
+        customerNumber:
+          type: integer
+          format: int64
+        sucessfullyUpdated:
+          type: boolean
+          format: int64
+          example: "true"
