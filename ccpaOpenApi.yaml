@@ -3,7 +3,6 @@ info:
   description: This is a swagger for the visible privacy portal landing page which
     implements the CCPA. Most of the API's here were developed using the slide
     numeber 14 as a reference.
-  version: 1.0.0
   title: CCPA Swagger
   termsOfService: https://www.visible.com/legal/terms-and-conditions
   contact:
